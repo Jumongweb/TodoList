@@ -1,5 +1,6 @@
 package com.jumong.todolist.model;
 
+import com.jumong.todolist.exception.TodoException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,23 @@ public class Task {
     private Long id;
     private String title;
     private String description;
-    private TaskStatus completed;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus taskStatus;
 
+    public void validate() {
+        validateTitle();
+        validateDescription();
+    }
+
+    public void validateTitle() {
+        if (title == null || title.isBlank()) {
+            throw new TodoException("Title cannot be empty");
+        }
+    }
+
+    public void validateDescription() {
+        if (description == null || description.isBlank()) {
+            throw new TodoException("You need to enter a description");
+        }
+    }
 }

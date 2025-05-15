@@ -10,5 +10,4 @@ public class CreateTaskRequest {
     private Long id;
     private String title;
     private String description;
-    private TaskStatus completed;
 }
